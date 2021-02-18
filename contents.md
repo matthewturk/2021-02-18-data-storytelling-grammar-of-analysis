@@ -93,7 +93,6 @@ Chris Havlin <!-- .element: class="headshot-caption" -->
 
 ## Credits: Local
 
-<div class="col" data-markdown=true>
 ![Kate McDowell](images/KateMcDowell.jpg) <!-- .element: class="headshot" -->
 
 Prof. Kate McDowell <!-- .element: class="headshot-caption" -->
@@ -556,6 +555,25 @@ from the very big to the very small.
 
 ---
 
+## What does yt do?
+
+<p class="">
+   `yt` reads data from around O(several dozen) different data formats, regularizes them into a memory model, and then applies semantics to it.
+</p>
+
+```bash
+$ h5ls galaxy0030/galaxy0030.cpu0000
+
+Grid00000001             Group
+Grid00000075             Group
+Grid00000076             Group
+Grid00000082             Group
+Grid00000110             Group
+Metadata                 Group
+```
+
+---
+
 # Volumetric Analysis Platform
 
 Data-format independent analysis and visualization.
@@ -566,7 +584,64 @@ From left, these are GAMER-2, AREPO and GIZMO data outputs, each utilizing diffe
 
 ---
 
-# Data Storytelling
+## Data Model
+
+The data is indexed, read in as requested, and accessed with respect to *physical* coordinates, rather than computationally-oriented systems.
+
+```python
+import yt
+ds = yt.load("galaxy0030/galaxy0030")
+ds.r[:, :, :].max("density")
+ds.r[ (10, 'kpc'):(30, 'kpc'), :, 0.1:0.9 ].integrate("density")
+```
+
+It also makes some visualizations and has lots of astro-specific modules.
+
+---
+
+## Who uses `yt`?
+
+<div class="appearing_row">
+  <div class="fragment" data-fragment-index="1"><div class="left_align">
+  Mostly...
+  </div></div>
+  <div class="fragment" data-fragment-index="1"><div class="right_align">
+  ...astro simulators
+  </div></div>
+</div>
+<br/>
+<br/>
+<div class="appearing_row">
+  <div class="fragment" data-fragment-index="2"><div class="left_align">
+  A bit...
+  </div></div>
+  <div class="fragment" data-fragment-index="2"><div class="right_align">
+  ...material science, geophysics, nuclear engineering folks
+  </div></div>
+</div>
+<br/>
+<br/>
+<div class="appearing_row">
+  <div class="fragment" data-fragment-index="3"><div class="left_align">
+  Eensy-weensy amount...
+  </div></div>
+  <div class="fragment" data-fragment-index="3"><div class="right_align">
+  ...other domains
+  </div></div>
+</div>
+
+---
+
+<!-- .slide: style="height: 100%;" -->
+
+## Who develops `yt`?
+
+<div class="fig-container" data-file="figures/yt_repo.html" data-preload data-style="height: 768px;">
+</div>
+
+---
+
+# Next: Data Storytelling
 
 We have to span the entire process from data **acquisition**, to **analysis**,
 to **application** to develop understandable information for researchers.
@@ -604,7 +679,11 @@ We are implementing this grammar of analysis within `yt`, starting with high-lev
 
 ---
 
+# Next: Expanding
 
+<p class="fragment">Our tools right now are focused on the technicalities, not the story.</p>
+<p class="fragment">This seeps into how we think about differential equations, simulation platforms, and how they connect with theory.</p>
+<p class="fragment">By understanding where the boundaries between semantics and pragmatic application are rough, ill-defined or too difficult to cross, we can address them.</p>
 
 ---
 
